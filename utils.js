@@ -28,21 +28,14 @@ export function interactive_execute_js(cmd, args, input, in_data) {
                 resolve(data);
             }
         });
-        // child.stderr.on('data', (data)=>reject(data));
-        // child.on('message', (m, socket) => {
-        //     console.log("Message: " + m);
-        //     if (m === input) {
-        //         console.log(m, " socket");
-        //         child.send(data);
-        //     }
-        // });
-        // child.on('exit', (code) => {
-        //     if (code !== 0) {
-        //         reject(new Error(`Command ${cmd} exited with code ${code}`));
-        //     } else {
-        //         resolve();
-        //     }
-        // });
+        child.stderr.on('data', (data)=>reject(data));
+        child.on('exit', (code) => {
+            if (code !== 0) {
+                reject(new Error(`Command ${cmd} exited with code ${code}`));
+            } else {
+                resolve();
+            }
+        });
     });
 }
 
