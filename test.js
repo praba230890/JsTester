@@ -4,11 +4,10 @@ describe('Delay', function () {
     describe('python script',  ()=> {
         
       it('should run python script', () => {
-        //   this.timeout(50000000);
           const verify = (data) => {
                 console.log(data.toString());
             }
-            execute_js("").then(
+            execute_js('python3', ['./delay.py']).then(
                 (data) => verify(data)
             );
       });

@@ -1,8 +1,8 @@
 import { spawn } from 'child_process';
 
-export function execute_js(cmd) {
+export function execute_js(cmd, args) {
     return new Promise((resolve, reject) => {
-        const child = spawn('python3', ['./delay.py']);
+        const child = spawn(cmd, args);
         child.stdout.on('data', (data)=>resolve(data));
         child.on('error', reject);
         child.on('exit', (code) => {
