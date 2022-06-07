@@ -1,16 +1,16 @@
 import { assert } from "chai";
-import { execute_js, interactive_execute_js } from "./utils.js";
+import cli from "./cli.js";
 
 describe('Delay', function () {
     describe('python script',  ()=> {
         
-      it('should run python script', async () => {
+      it('should run python script to fail test', async () => {
           const verify = (data) => {
                 assert.equal(data.toString(), 'Hello,world!\r\n');
                 console.log(data.toString());
                 
             }
-            const data = await execute_js('python3', ['./delay.py']);
+            const data = await cli.exec_cmd('python3', ['./delay.py']);
             verify(data);
       }).timeout(500000);
 
@@ -19,7 +19,7 @@ describe('Delay', function () {
               console.log("");
               console.log("final output: \n"+ data.toString());
           }
-            const data = await interactive_execute_js('python3', ['./delay_in.py'], "input", "whatever");
+            const data = await cli.exec_cmd_with_prompt('python3', ['./delay_in.py'], "input", "whatever");
             verify(data);
         }).timeout(500000);
     });

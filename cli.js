@@ -1,6 +1,12 @@
 import { spawn } from 'child_process';
 
-export function execute_js(cmd, args) {
+
+/**
+* function to run cli commands - a wrapper on spawn
+* @param {string} cmd - command to run
+* @param {string} args - arguments to pass to command
+*/
+export function exec_cmd(cmd, args) {
     return new Promise((resolve, reject) => {
         const child = spawn(cmd, args);
         child.stdout.on('data', (data)=>resolve(data));
@@ -16,13 +22,13 @@ export function execute_js(cmd, args) {
 }
 
 /**
-* function to run commands interactively
+* function to run commands interactively - a wrapper on spawn
 * @param {string} cmd - command to run
 * @param {string} args - arguments to pass to command
 * @param {string} expected_prompt - input prompt text to expect
 * @param {string} in_data - input data to the prompt
 */
-export function interactive_execute_js(cmd, args, expected_prompt, in_data) {
+export function exec_cmd_with_prompt(cmd, args, expected_prompt, in_data) {
     return new Promise((resolve, reject) => {
         const child = spawn(cmd, args);
         child.stdout.on('data', (stdout_data)=>{
@@ -47,4 +53,4 @@ export function interactive_execute_js(cmd, args, expected_prompt, in_data) {
 }
 
 
-
+export default { exec_cmd, exec_cmd_with_prompt };
