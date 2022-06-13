@@ -5,9 +5,9 @@ describe('Delay', function () {
     describe('python script',  ()=> {
         
       it('should run python script to fail test', async () => {
-          const verify = (data) => {
-                assert.equal(data.toString(), 'Hello,world!\r\n');
-                console.log(data.toString());
+          const verify = (out) => {
+                assert.equal(out, 'Hello,world!\r\n');
+                console.log(out);
                 
             }
             const data = await cli.exec_cmd('python3', ['./delay.py']);
@@ -15,9 +15,9 @@ describe('Delay', function () {
       }).timeout(500000);
 
       it('should run python int script', async () => {
-        const verify = (data) => {
+        const verify = (out) => {
               console.log("");
-              console.log("final output: \n"+ data.toString());
+              console.log("final output: \n"+ out);
           }
             const data = await cli.exec_cmd_with_prompt('python3', ['./delay_in.py'], "input", "whatever");
             verify(data);

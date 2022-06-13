@@ -9,8 +9,8 @@ import { spawn } from 'child_process';
 export function exec_cmd(cmd, args) {
     return new Promise((resolve, reject) => {
         const child = spawn(cmd, args);
-        child.stdout.on('data', (data)=>resolve(data));
-        child.stderr.on('data', (data)=>reject(data));
+        child.stdout.on('data', (data)=>resolve(data.toString()));
+        child.stderr.on('data', (data)=>reject(data.toString()));
         child.on('exit', (code) => {
             if (code !== 0) {
                 reject(new Error(`Command ${cmd} exited with code ${code}`));
@@ -41,7 +41,7 @@ export function exec_cmd_with_prompt(cmd, args, expected_prompt, in_data) {
                 resolve(stdout_data);
             }
         });
-        child.stderr.on('data', (stderr_data)=>reject(stderr_data));
+        child.stderr.on('data', (stderr_data)=>reject(stderr_data.toString()));
         child.on('exit', (exit_code) => {
             if (exit_code !== 0) {
                 reject(new Error(`Command ${cmd} exited with code ${exit_code}`));
