@@ -1,6 +1,5 @@
 import { spawn } from 'child_process';
 
-
 /**
 * function to run cli commands - a wrapper on spawn
 * @param {string} cmd - command to run
